@@ -41,6 +41,11 @@ func (node *RBNode) getColor() string {
 	return "Black"
 }
 
+// GetVal 获得当前红黑树节点的值
+func (node *RBNode) GetVal() int {
+	return node.val
+}
+
 // leftRotate 左旋函数
 // 其关系为
 //              |                                   |
@@ -134,7 +139,7 @@ func (node *RBNode) uncle() *RBNode {
 
 // RBInsert 向红黑树中插入一个数据
 func RBInsert(root **RBNode, val int) bool {
-	node := insertBST(root, nil, val)
+	node := insertRBTree(root, nil, val)
 	if node == nil {
 		return false
 	}
@@ -192,7 +197,7 @@ func RBInsert(root **RBNode, val int) bool {
 	return true
 }
 
-func insertBST(root **RBNode, parent *RBNode, val int) *RBNode {
+func insertRBTree(root **RBNode, parent *RBNode, val int) *RBNode {
 	if *root == nil {
 		s := new(RBNode)
 		s.val = val
@@ -202,9 +207,9 @@ func insertBST(root **RBNode, parent *RBNode, val int) *RBNode {
 		s.setRed()
 		*root = s
 	} else if val < (*root).val {
-		return insertBST(&((*root).left), *root, val)
+		return insertRBTree(&((*root).left), *root, val)
 	} else {
-		return insertBST(&((*root).right), *root, val)
+		return insertRBTree(&((*root).right), *root, val)
 	}
 	return *root
 }
